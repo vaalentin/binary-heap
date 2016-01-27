@@ -25,6 +25,27 @@ test('should throws if trying to pop while empty', t => {
   t.throws(() => heap.pop(), Error, 'can\'t pop an empty heap');
 });
 
+test('should give parent index', t => {
+  t.plan(4);
+
+  const heap = new BinaryHeap();
+
+  /**
+   * We use an array to lay down the data, in the form:
+   * [parent, leftChild, rightChild, leftChildLeftChild, leftChildRightChild, etc...]
+   */
+
+  const leftChildIndex = heap.getLeftChildIndex(0);
+  const rightChildIndex = heap.getRightChildIndex(0);
+  const firstParentIndex = heap.getParentIndex(1);
+  const secondParentIndex = heap.getParentIndex(2);
+
+  t.equal(leftChildIndex, 1, 'left child index is correct');
+  t.equal(rightChildIndex, 2, 'right child index is correct');
+  t.equal(firstParentIndex, 0, 'left child parent is correct')
+  t.equal(secondParentIndex, 0, 'right child parent is correct')
+});
+
 test('should order values', t => {
   t.plan(1);
 

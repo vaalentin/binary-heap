@@ -6,15 +6,15 @@ test('should tell if empty', t => {
 
   const heap = new BinaryHeap();
   
-  t.ok(heap.isEmpty(), 'heap is empty');
+  t.equal(heap.isEmpty(), true, 'heap is empty');
   
   heap.push(1);
 
-  t.notOk(heap.isEmpty(), 'heap is no longer empty');
+  t.equal(heap.isEmpty(), false, 'heap is no longer empty');
 
   heap.pop();
 
-  t.ok(heap.isEmpty(), 'heap is empty again');
+  t.equal(heap.isEmpty(), true, 'heap is empty again');
 });
 
 test('should throws if trying to pop while empty', t => {
@@ -28,18 +28,22 @@ test('should throws if trying to pop while empty', t => {
 test('should order values', t => {
   t.plan(1);
 
+  const sampleSize = 10;
+
   const numbers = [];
-  for(let i = 0; i < 100; i++) {
+  for(let i = 0; i < sampleSize; i++) {
     numbers[i] = Math.random() * 100;
   }
 
   const sorted = numbers.sort((a, b) => a - b);
 
   const heap = new BinaryHeap();
-  randomNumbers.forEach(n => heap.push(n));
+  numbers.forEach(n => heap.push(n));
 
+  let i = 0;
   const result = [];
   while(!heap.isEmpty()) {
+    if(i++ > sampleSize) break; 
     result.push(heap.pop());
   }
 
@@ -49,6 +53,8 @@ test('should order values', t => {
 test('should accept custom comparison function', t => {
   t.plan(1);
 
+  const sampleSize = 10;
+
   class Node {
     constructor(weight) {
       this.weight = weight;
@@ -56,7 +62,7 @@ test('should accept custom comparison function', t => {
   }
 
   const nodes = [];
-  for(let i = 0; i < 100; i++) {
+  for(let i = 0; i < sampleSize; i++) {
     nodes.push(new Node(Math.random() * 100));
   }
 
@@ -65,8 +71,11 @@ test('should accept custom comparison function', t => {
   const heap = new BinaryHeap((a, b) => a.weight - b.weight);
   nodes.forEach(n => heap.push(n));
 
+  let i = 0;
+
   const result = [];
   while(!heap.isEmpty()) {
+    if(i++ > sampleSize) break;
     result.push(heap.pop());
   }
 
@@ -93,8 +102,10 @@ test('should be able to update a node', t => {
   node.weight = 5;
   heap.update(node);
 
+  let i = 0;
   const result = [];
   while(!heap.isEmpty()) {
+    if(i++ > 3) break;
     result.push(heap.pop());
   }
 

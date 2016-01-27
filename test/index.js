@@ -25,7 +25,7 @@ test('should throws if trying to pop while empty', t => {
   t.throws(() => heap.pop(), Error, 'can\'t pop an empty heap');
 });
 
-test('should give parent index', t => {
+test('should give children and parent index', t => {
   t.plan(4);
 
   const heap = new BinaryHeap();

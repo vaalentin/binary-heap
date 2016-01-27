@@ -17,11 +17,31 @@ export default class BinaryHeap {
   }
 
   siftUp(index) {
+    if(index === 0) {
+      return;
+    }
 
+    const parentIndex = this.getParentIndex(index);
+
+    if(this._nodes[parentIndex] > this._nodes[index]) {
+      const temp = this._nodes[parentIndex];
+      this._nodes[parentIndex] = this._nodes[index];
+      this._nodes[index] = temp;
+      this.siftUp(parentIndex);
+    }
   }
 
   siftDown(index) {
+    const leftChildIndex = this.getLeftChildIndex(index);
+    const rightChildIndex = this.getRightChildIndex(index);
 
+    let minimumIndex;
+
+    if(rightChildIndex >= this._heapSize) {
+      
+    } else {
+
+    }
   }
 
   isEmpty() {

@@ -4,6 +4,26 @@ export default class BinaryHeap {
     this._heapSize = 0;
   }
 
+  getLeftChildIndex(index) {
+    return 2 * index + 1;
+  }
+
+  getRightChildIndex(index) {
+    return 2 * index + 2;
+  }
+
+  getParentIndex(index) {
+    return Math.floor((index - 1) / 2);
+  }
+
+  siftUp(index) {
+
+  }
+
+  siftDown(index) {
+
+  }
+
   isEmpty() {
     return this._heapSize <= 0;
   }
@@ -22,7 +42,7 @@ export default class BinaryHeap {
 
   peek() {
     if(this.isEmpty()) {
-      throw('Heap is empty');
+      throw new Error('Heap is empty');
     } else {
       return this._nodes[0];
     }

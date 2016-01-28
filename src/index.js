@@ -1,22 +1,65 @@
+/**
+ * @function ascending
+ * @param {number} a
+ * @param {number} b
+ * @returns {number}
+ */
+export function ascending(a, b) {
+  return a - b;
+}
+
+/**
+ * @function descending
+ * @param {number} a
+ * @param {number} b
+ * @returns {number}
+ */
+export function descending(b, a) {
+  return b - a;
+}
+
+/**
+ * @class BinaryHeap
+ */
 export default class BinaryHeap {
-  constructor(comparison = (a, b) => a - b) {
+  /**
+   * @constructs BinaryHeap
+   * @param {(a, b) => number} [comparison = ascending]
+   */ 
+  constructor(comparison = ascending) {
     this._comparision = comparison;
     this._nodes = [];
     this._heapSize = 0;
   }
 
+  /**
+   * @method getLeftChildIndex
+   * @param {uint} index
+   */
   getLeftChildIndex(index) {
     return 2 * index + 1;
   }
 
+  /**
+   * @method getRightChildIndex
+   * @param {uint} index
+   */
   getRightChildIndex(index) {
     return 2 * index + 2;
   }
 
+  /**
+   * @method getParentIndex
+   * @param {uint} index
+   */
   getParentIndex(index) {
     return Math.floor((index - 1) / 2);
   }
 
+  /**
+   * @method siftUp
+   * @param {uint} index
+   */
   siftUp(index) {
     if(index === 0) {
       return;
@@ -32,6 +75,10 @@ export default class BinaryHeap {
     }
   }
 
+  /**
+   * @method siftDown
+   * @param {uint} index
+   */
   siftDown(index) {
     const leftChildIndex = this.getLeftChildIndex(index);
     const rightChildIndex = this.getRightChildIndex(index);
@@ -39,7 +86,6 @@ export default class BinaryHeap {
     let smallestChildIndex;
 
     if(rightChildIndex >= this._heapSize) {
-      // last node in the tree
       if(leftChildIndex >= this._heapSize) {
         return;
       } else {
@@ -61,16 +107,40 @@ export default class BinaryHeap {
     }
   }
 
+  /**
+   * @method isEmpty
+   * @returns {boolean}
+   */
   isEmpty() {
     return this._heapSize <= 0;
   }
 
+  /**
+   * @method peek
+   * @returns {any}
+   */
+  peek() {
+    if(this.isEmpty()) {
+      throw new Error('Heap is empty');
+    } else {
+      return this._nodes[0];
+    }
+  }
+
+  /**
+   * @method push
+   * @param {any} node
+   */
   push(node) {
     this._heapSize++;
     this._nodes[this._heapSize - 1] = node;
     this.siftUp(this._heapSize - 1);
   }
 
+  /**
+   * @method pop
+   * @returns {any}
+   */
   pop() {
     const node = this.peek();
     this._nodes[0] = this._nodes[this._heapSize - 1];
@@ -81,14 +151,10 @@ export default class BinaryHeap {
     return node;
   }
 
-  peek() {
-    if(this.isEmpty()) {
-      throw new Error('Heap is empty');
-    } else {
-      return this._nodes[0];
-    }
-  }
-
+  /**
+   * @method update
+   * @param {any} node
+   */
   update(node) {
     const index = this._nodes.indexOf(node);
 
@@ -100,7 +166,10 @@ export default class BinaryHeap {
     this.siftUp(index);
   }
 
+  /**
+   * @method dispose
+   */
   dispose() {
-    
+    this._nodes = null;
   }
 }

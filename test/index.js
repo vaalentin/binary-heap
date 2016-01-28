@@ -46,20 +46,20 @@ test('should give children and parent index', t => {
   t.equal(secondParentIndex, 0, 'right child parent is correct')
 });
 
-test('should order values', t => {
+test('should order values from the minimum to the maximum', t => {
   t.plan(1);
 
   const sampleSize = 10;
 
   const numbers = [];
   for(let i = 0; i < sampleSize; i++) {
-    numbers[i] = Math.random() * 100;
+    numbers[i] = Math.round(Math.random() * 100);
   }
-
-  const sorted = numbers.sort((a, b) => a - b);
 
   const heap = new BinaryHeap();
   numbers.forEach(n => heap.push(n));
+
+  const sorted = numbers.slice().sort((a, b) => a - b);
 
   let i = 0;
   const result = [];
@@ -68,7 +68,7 @@ test('should order values', t => {
     result.push(heap.pop());
   }
 
-  t.deepEqual(sorted, result);
+  t.deepEqual(result, sorted);
 });
 
 test('should accept custom comparison function', t => {
@@ -100,7 +100,7 @@ test('should accept custom comparison function', t => {
     result.push(heap.pop());
   }
 
-  t.deepEqual(sorted, result);
+  t.deepEqual(result, sorted);
 });
 
 test('should be able to update a node', t => {

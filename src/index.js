@@ -35,12 +35,26 @@ export default class BinaryHeap {
     const leftChildIndex = this.getLeftChildIndex(index);
     const rightChildIndex = this.getRightChildIndex(index);
 
-    let minimumIndex;
+    let smallestChildIndex;
 
     if(rightChildIndex >= this._heapSize) {
-      
+      // last node in the tree
+      if(leftChildIndex >= this._heapSize) {
+        return;
+      } else {
+        smallestChildIndex = leftChildIndex;
+      }
     } else {
+      smallestChildIndex = this._nodes[leftChildIndex] <= this._nodes[rightChildIndex]
+        ? leftChildIndex
+        : rightChildIndex;
+    }
 
+    if(this._nodes[index] > this._nodes[smallestChildIndex]) {
+      const tmp = this._nodes[smallestChildIndex];
+      this._nodes[smallestChildIndex] = this._nodes[index];
+      this._nodes[index] = tmp;
+      this.siftDown(smallestChildIndex);
     }
   }
 
@@ -50,13 +64,17 @@ export default class BinaryHeap {
 
   push(node) {
     this._heapSize++;
-    this._nodes.push(node);
+    this._nodes[this._heapSize - 1] = node;
+    this.siftUp(this._heapSize - 1);
   }
 
   pop() {
     const node = this.peek();
     this._nodes[0] = this._nodes[this._heapSize - 1];
     this._heapSize--;
+    if(this._heapSize > 0) {
+      this.siftDown(0);
+    }
     return node;
   }
 

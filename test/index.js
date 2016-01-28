@@ -22,7 +22,7 @@ test('should throws if trying to pop while empty', t => {
 
   const heap = new BinaryHeap();
 
-  t.throws(() => heap.pop(), Error, 'can\'t pop an empty heap');
+  t.throws(() => heap.pop(), Error);
 });
 
 test('should give children and parent index', t => {
@@ -87,7 +87,7 @@ test('should accept custom comparison function', t => {
     nodes.push(new Node(Math.random() * 100));
   }
 
-  const sorted = nodes.sort((a, b) => a.weight - b.weight);
+  const sorted = nodes.slice().sort((a, b) => a.weight - b.weight);
 
   const heap = new BinaryHeap((a, b) => a.weight - b.weight);
   nodes.forEach(n => heap.push(n));
@@ -101,6 +101,15 @@ test('should accept custom comparison function', t => {
   }
 
   t.deepEqual(result, sorted);
+});
+
+test('should throws when trying to update non existing node', t => {
+  t.plan(1);
+
+  const heap = new BinaryHeap();
+  heap.push(2);
+
+  t.throws(() => heap.update(1), Error);
 });
 
 test('should be able to update a node', t => {
@@ -132,5 +141,5 @@ test('should be able to update a node', t => {
 
   const weights = result.map(n => n.weight);
 
-  t.deepEqual(weights, [2, 5, 100], 'node was correctly updated');
+  t.deepEqual(weights, [2, 5, 10], 'node was correctly updated');
 });

@@ -90,7 +90,14 @@ export default class BinaryHeap {
   }
 
   update(node) {
+    const index = this._nodes.indexOf(node);
 
+    if(index === -1) {
+      throw new Error('Trying to update a non existing node');
+    }
+
+    this.siftDown(index);
+    this.siftUp(index);
   }
 
   dispose() {

@@ -1,5 +1,6 @@
 export default class BinaryHeap {
-  constructor() {
+  constructor(comparison = (a, b) => a - b) {
+    this._comparision = comparison;
     this._nodes = [];
     this._heapSize = 0;
   }
@@ -23,7 +24,7 @@ export default class BinaryHeap {
 
     const parentIndex = this.getParentIndex(index);
 
-    if(this._nodes[parentIndex] > this._nodes[index]) {
+    if(this._comparision(this._nodes[parentIndex], this._nodes[index]) > 0) {
       const temp = this._nodes[parentIndex];
       this._nodes[parentIndex] = this._nodes[index];
       this._nodes[index] = temp;
@@ -45,12 +46,14 @@ export default class BinaryHeap {
         smallestChildIndex = leftChildIndex;
       }
     } else {
-      smallestChildIndex = this._nodes[leftChildIndex] <= this._nodes[rightChildIndex]
-        ? leftChildIndex
-        : rightChildIndex;
+      if(this._comparision(this._nodes[leftChildIndex], this._nodes[rightChildIndex]) <= 0) {
+        smallestChildIndex = leftChildIndex;
+      } else {
+        smallestChildIndex = rightChildIndex;
+      }
     }
 
-    if(this._nodes[index] > this._nodes[smallestChildIndex]) {
+    if(this._comparision(this._nodes[index], this._nodes[smallestChildIndex]) > 0) {
       const tmp = this._nodes[smallestChildIndex];
       this._nodes[smallestChildIndex] = this._nodes[index];
       this._nodes[index] = tmp;

@@ -34,6 +34,7 @@ export default class BinaryHeap {
 
   /**
    * @method getLeftChildIndex
+   * @private
    * @param {uint} index
    */
   getLeftChildIndex(index) {
@@ -42,6 +43,7 @@ export default class BinaryHeap {
 
   /**
    * @method getRightChildIndex
+   * @private
    * @param {uint} index
    */
   getRightChildIndex(index) {
@@ -50,6 +52,7 @@ export default class BinaryHeap {
 
   /**
    * @method getParentIndex
+   * @private
    * @param {uint} index
    */
   getParentIndex(index) {
@@ -58,6 +61,7 @@ export default class BinaryHeap {
 
   /**
    * @method siftUp
+   * @private
    * @param {uint} index
    */
   siftUp(index) {
@@ -77,6 +81,7 @@ export default class BinaryHeap {
 
   /**
    * @method siftDown
+   * @private
    * @param {uint} index
    */
   siftDown(index) {
@@ -109,6 +114,7 @@ export default class BinaryHeap {
 
   /**
    * @method isEmpty
+   * @public
    * @returns {boolean}
    */
   isEmpty() {
@@ -117,6 +123,7 @@ export default class BinaryHeap {
 
   /**
    * @method peek
+   * @public
    * @returns {any}
    */
   peek() {
@@ -129,6 +136,7 @@ export default class BinaryHeap {
 
   /**
    * @method push
+   * @public
    * @param {any} node
    */
   push(node) {
@@ -139,6 +147,7 @@ export default class BinaryHeap {
 
   /**
    * @method pop
+   * @public
    * @returns {any}
    */
   pop() {
@@ -153,6 +162,7 @@ export default class BinaryHeap {
 
   /**
    * @method update
+   * @public
    * @param {any} node
    */
   update(node) {
@@ -168,6 +178,7 @@ export default class BinaryHeap {
 
   /**
    * @method dispose
+   * @public
    */
   dispose() {
     this._nodes = null;
